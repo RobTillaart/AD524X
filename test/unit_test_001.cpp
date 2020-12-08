@@ -77,7 +77,7 @@ unittest(test_O1_O2)
   assertEqual(0, AD.getO2());
   
   AD.setO1();
-  assertEqual(0, AD.getO1());
+  assertEqual(1, AD.getO1());
   assertEqual(0, AD.getO2());
 
   AD.setO2();
@@ -93,7 +93,7 @@ unittest(test_O1_O2)
   assertEqual(0, AD.getO2());
   
   AD.write(0, 0, 1, 1);
-  assertEqual(0, AD.getO1());
+  assertEqual(1, AD.getO1());
   assertEqual(1, AD.getO2());
 }
 
