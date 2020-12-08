@@ -39,17 +39,17 @@ unittest(test_constructors)
 {
   Wire.begin();
 
-  AD524X AD(0x2C);  // AD0 & AD1 == GND
-  assertEqual(127, AD.read(0));
-  assertEqual(127, AD.read(1));
+  AD524X ADx(0x2C);  // AD0 & AD1 == GND
+  assertEqual(127, ADx.read(0));
+  assertEqual(127, ADx.read(1));
 
-  AD5241 AD(0x2C);
-  assertEqual(127, AD.read(0));
-  assertEqual(127, AD.read(1));
+  AD5241 AD1(0x2C);
+  assertEqual(127, AD1.read(0));
+  assertEqual(127, AD1.read(1));
 
-  AD5242 AD(0x2C);
-  assertEqual(127, AD.read(0));
-  assertEqual(127, AD.read(1));
+  AD5242 AD2(0x2C);
+  assertEqual(127, AD2.read(0));
+  assertEqual(127, AD2.read(1));
 }
 
 
