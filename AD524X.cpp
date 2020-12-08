@@ -1,7 +1,7 @@
 //
 //    FILE: AD524X.cpp
 //  AUTHOR: Rob Tillaart
-// VERSION: 0.2.1
+// VERSION: 0.3.0
 // PURPOSE: I2C digital potentiometer AD5241 AD5242
 //    DATE: 2013-10-12
 //     URL: https://github.com/RobTillaart/AD524X
@@ -22,6 +22,7 @@ AD524X::AD524X(const uint8_t address)
   _address = address;
   _lastValue[0] = _lastValue[1] = 127; // power on reset => mid position
   _O1 = _O2 = 0;
+  _pmCount = 2;
 }
 
 uint8_t AD524X::reset()
@@ -38,7 +39,7 @@ uint8_t AD524X::zeroAll()
 
 uint8_t AD524X::write(const uint8_t rdac, const uint8_t value)
 {
-  if (rdac > 1) return AS524X_ERROR;
+  if (rdac >= _pmCount) return AS524X_ERROR;
 
   uint8_t cmd = (rdac == 0) ? AS524X_RDAC0 : AS524X_RDAC1;
   // apply the output lines
@@ -49,7 +50,7 @@ uint8_t AD524X::write(const uint8_t rdac, const uint8_t value)
 
 uint8_t AD524X::write(const uint8_t rdac, const uint8_t value, const uint8_t O1, const uint8_t O2)
 {
-  if (rdac > 1) return AS524X_ERROR;
+  if (rdac >= _pmCount) return AS524X_ERROR;
 
   uint8_t cmd = (rdac == 0) ? AS524X_RDAC0 : AS524X_RDAC1;
   _O1 = (O1 == LOW) ? 0 : AS524X_O1_HIGH;
@@ -99,21 +100,22 @@ uint8_t AD524X::readBackRegister()
 
 uint8_t AD524X::midScaleReset(const uint8_t rdac)
 {
-  if (rdac > 1) return AS524X_ERROR;
+  if (rdac >= _pmCount) return AS524X_ERROR;
 
   uint8_t cmd = AS524X_RESET;
   if (rdac == 1) cmd |= AS524X_RDAC1;
   cmd = cmd | _O1 | _O2;
   _lastValue[rdac] = 127;
-   return send(cmd, _lastValue[rdac]);
+  return send(cmd, _lastValue[rdac]);
 }
 
-// TODO read datasheet
-// uint8_t AD524X::shutDown()
-// {
-//  uint8_t cmd = AS524X_SHUTDOWN;
-//  sendCommand(cmd, 0)
-// }
+// read datasheet P.15 
+uint8_t AD524X::shutDown()
+{
+  uint8_t cmd = AS524X_SHUTDOWN;  // TODO TEST & VERIFY
+  return send(cmd, 0);
+}
+
 
 //////////////////////////////////////////////////////////
 //
@@ -126,5 +128,18 @@ uint8_t AD524X::send(const uint8_t cmd, const uint8_t value)
   Wire.write(value);
   return Wire.endTransmission();
 }
+
+/////////////////////////////////////////////////////////////////////////////
+
+
+AD5241::AD5241(const uint8_t address) : AD524X(address)
+{
+  _pmCount = 1;
+};
+
+AD5242::AD5242(const uint8_t address) : AD524X(address)
+{
+  _pmCount = 2;
+};
 
 // -- END OF FILE --
