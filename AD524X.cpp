@@ -39,7 +39,6 @@ uint8_t AD524X::zeroAll()
 
 uint8_t AD524X::write(const uint8_t rdac, const uint8_t value)
 {
-
   if (rdac >= _pmCount) return AS524X_ERROR;
 
   uint8_t cmd = (rdac == 0) ? AS524X_RDAC0 : AS524X_RDAC1;

@@ -74,7 +74,4 @@ The developer is responsible for handling this correctly.
 
 ## Operation
 
-
-## Operation
-
 The examples show the basic working of the functions.

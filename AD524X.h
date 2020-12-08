@@ -25,7 +25,6 @@ public:
   uint8_t zeroAll();  //   set both channels to 0   and O1/O2 to LOW
 
   uint8_t read(const uint8_t rdac);
-
   uint8_t write(const uint8_t rdac, const uint8_t value);
   uint8_t write(const uint8_t rdac, const uint8_t value, const uint8_t O1, const uint8_t O2);
 
