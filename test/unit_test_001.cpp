@@ -36,6 +36,7 @@ unittest_teardown()
 unittest(test_begin)
 {
   AD524X AD(0x2C);  // AD0 & AD1 == GND
+  Wire.begin();
 
   assertEqual(127, AD.read(0));
   assertEqual(127, AD.read(1));
@@ -52,6 +53,7 @@ unittest(test_begin)
 unittest(test_write_read)
 {
   AD524X AD(0x2C);  // AD0 & AD1 == GND
+  Wire.begin();
 
   assertEqual(127, AD.read(0));
   assertEqual(127, AD.read(1));
@@ -69,6 +71,7 @@ unittest(test_write_read)
 unittest(test_O1_O2)
 {
   AD524X AD(0x2C);  // AD0 & AD1 == GND
+  Wire.begin();
 
   assertEqual(0, AD.getO1());
   assertEqual(0, AD.getO2());
