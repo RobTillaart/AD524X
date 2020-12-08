@@ -37,8 +37,8 @@ unittest(test_begin)
 {
   AD524X AD(0x2C);  // AD0 & AD1 == GND
 
-  assertEqual(128, AD.read(0));
-  assertEqual(128, AD.read(1));
+  assertEqual(127, AD.read(0));
+  assertEqual(127, AD.read(1));
 
   AD.zeroAll();
   assertEqual(0, AD.read(0));
@@ -49,12 +49,12 @@ unittest(test_write_read)
 {
   AD524X AD(0x2C);  // AD0 & AD1 == GND
 
-  assertEqual(128, AD.read(0));
-  assertEqual(128, AD.read(1));
+  assertEqual(127, AD.read(0));
+  assertEqual(127, AD.read(1));
 
   AD.write(0, 42);
   assertEqual(42, AD.read(0));
-  assertEqual(128, AD.read(1));
+  assertEqual(127, AD.read(1));
 
   AD.write(1, 42);
   assertEqual(42, AD.read(0));
