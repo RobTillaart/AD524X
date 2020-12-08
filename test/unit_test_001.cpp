@@ -22,7 +22,6 @@
 
 #include <ArduinoUnitTests.h>
 
-#include "Arduino.h"
 #include "AD524X.h"
 
 
@@ -34,9 +33,61 @@ unittest_teardown()
 {
 }
 
-unittest(test_demo)
+unittest(test_begin)
 {
-  assertEqual(1, 1);
+  AD524X AD(0x2C);  // AD0 & AD1 == GND
+
+  assertEqual(128, AD.read(0));
+  assertEqual(128, AD.read(1));
+
+  AD.zeroAll();
+  assertEqual(0, AD.read(0));
+  assertEqual(0, AD.read(1));
+}
+
+unittest(test_write_read)
+{
+  AD524X AD(0x2C);  // AD0 & AD1 == GND
+
+  assertEqual(128, AD.read(0));
+  assertEqual(128, AD.read(1));
+
+  AD.write(0, 42);
+  assertEqual(42, AD.read(0));
+  assertEqual(128, AD.read(1));
+
+  AD.write(1, 42);
+  assertEqual(42, AD.read(0));
+  assertEqual(42, AD.read(1));
+
+}
+
+unittest(test_O1_O2)
+{
+  AD524X AD(0x2C);  // AD0 & AD1 == GND
+
+  assertEqual(0, AD.getO1());
+  assertEqual(0, AD.getO2());
+  
+  AD.setO1();
+  assertEqual(0, AD.getO1());
+  assertEqual(0, AD.getO2());
+
+  AD.setO2();
+  assertEqual(1, AD.getO1());
+  assertEqual(1, AD.getO2());
+  
+  AD.setO1(0);
+  assertEqual(0, AD.getO1());
+  assertEqual(1, AD.getO2());
+
+  AD.setO2(0);
+  assertEqual(0, AD.getO1());
+  assertEqual(0, AD.getO2());
+  
+  AD.write(0, 0, 1, 1);
+  assertEqual(0, AD.getO1());
+  assertEqual(1, AD.getO2());
 }
 
 unittest_main()
