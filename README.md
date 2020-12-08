@@ -20,6 +20,7 @@ and can be set in 256 steps.
 An important property of the devices is that they defaults
 to their mid position at startup.
 
+
 ## I2C address
 
 The AD524X has two address lines to configure the I2C address.0x2C - 0x2F 
@@ -37,6 +38,7 @@ The AD524X has two address lines to configure the I2C address.0x2C - 0x2F
 The library has a number of functions which are all quite straightforward.
 One can get / set the value of (both) the potentiometer(s), and the O1 and O2 lines.
 
+
 ### Constructors
 
 - **AD524X()** base class, creates an instance with 2 potentiometer.
@@ -44,6 +46,7 @@ This class does not distinguish between AD5241 and AD5242.
 The developer is responsible for handling this correctly.
 - **AD5241()** create an instance with 1 potentiometer
 - **AD5242()** create an instance with 2 potentiometer
+
 
 ### Basic IO
 
@@ -55,6 +58,7 @@ The developer is responsible for handling this correctly.
 - **uint8_t getO1()** read back O1 line
 - **uint8_t getO2()** read back O2 line
 
+
 ### Misc
 
 - **uint8_t zeroAll()** sets pm's and I/O to 0 or LOW.
@@ -62,9 +66,14 @@ The developer is responsible for handling this correctly.
 - **uint8_t midScaleReset(rdac)** resets one to midpoint = 127.
 - **uint8_t readBackRegister()** read register back, for debugging.
 
+
 ### Experimental
 
 - **uint8_t shutDown()** check datasheet, not tested yet, use at own risk.
+
+
+## Operation
+
 
 ## Operation
 

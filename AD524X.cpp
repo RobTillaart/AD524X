@@ -39,6 +39,7 @@ uint8_t AD524X::zeroAll()
 
 uint8_t AD524X::write(const uint8_t rdac, const uint8_t value)
 {
+
   if (rdac >= _pmCount) return AS524X_ERROR;
 
   uint8_t cmd = (rdac == 0) ? AS524X_RDAC0 : AS524X_RDAC1;
@@ -106,7 +107,7 @@ uint8_t AD524X::midScaleReset(const uint8_t rdac)
   if (rdac == 1) cmd |= AS524X_RDAC1;
   cmd = cmd | _O1 | _O2;
   _lastValue[rdac] = 127;
-   return send(cmd, _lastValue[rdac]);
+  return send(cmd, _lastValue[rdac]);
 }
 
 // read datasheet P.15 

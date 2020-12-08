@@ -15,7 +15,11 @@
     "type": "git",
     "url": "https://github.com/RobTillaart/AD524X"
   },
+<<<<<<< HEAD
   "version":"0.3.0",
+=======
+  "version":"0.2.2",
+>>>>>>> master
   "frameworks": "arduino",
   "platforms": "*"
 }
