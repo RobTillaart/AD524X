@@ -18,88 +18,94 @@
 
 AD524X::AD524X(const uint8_t address)
 {
-    // address: 0x01011xx = 0x2C - 0x2F
-    _address = address;
-    _lastValue[0] = _lastValue[1] = 127; // power on reset => mid position
-    _O1 = _O2 = 0;
+  // address: 0x01011xx = 0x2C - 0x2F
+  _address = address;
+  _lastValue[0] = _lastValue[1] = 127; // power on reset => mid position
+  _O1 = _O2 = 0;
+}
+
+uint8_t AD524X::reset()
+{
+  write(0, 127, LOW, LOW);
+  return write(1, 127);
 }
 
 uint8_t AD524X::zeroAll()
 {
-    write(0, 0, LOW, LOW);
-    return write(1, 0);
+  write(0, 0, LOW, LOW);
+  return write(1, 0);
 }
 
 uint8_t AD524X::write(const uint8_t rdac, const uint8_t value)
 {
-    if (rdac > 1) return AS524X_ERROR;
+  if (rdac > 1) return AS524X_ERROR;
 
-    uint8_t cmd = (rdac == 0) ? AS524X_RDAC0 : AS524X_RDAC1;
-    // apply the output lines
-    cmd = cmd | _O1 | _O2;
-    _lastValue[rdac] = value;
-    return send(cmd, value);
+  uint8_t cmd = (rdac == 0) ? AS524X_RDAC0 : AS524X_RDAC1;
+  // apply the output lines
+  cmd = cmd | _O1 | _O2;
+  _lastValue[rdac] = value;
+  return send(cmd, value);
 }
 
 uint8_t AD524X::write(const uint8_t rdac, const uint8_t value, const uint8_t O1, const uint8_t O2)
 {
-    if (rdac > 1) return AS524X_ERROR;
+  if (rdac > 1) return AS524X_ERROR;
 
-    uint8_t cmd = (rdac == 0) ? AS524X_RDAC0 : AS524X_RDAC1;
-    _O1 = (O1 == LOW) ? 0 : AS524X_O1_HIGH;
-    _O2 = (O2 == LOW) ? 0 : AS524X_O2_HIGH;
-    // apply the output lines
-    cmd = cmd | _O1 | _O2;
-    _lastValue[rdac] = value;
-    return send(cmd, value);
+  uint8_t cmd = (rdac == 0) ? AS524X_RDAC0 : AS524X_RDAC1;
+  _O1 = (O1 == LOW) ? 0 : AS524X_O1_HIGH;
+  _O2 = (O2 == LOW) ? 0 : AS524X_O2_HIGH;
+  // apply the output lines
+  cmd = cmd | _O1 | _O2;
+  _lastValue[rdac] = value;
+  return send(cmd, value);
 }
 
 uint8_t AD524X::setO1(const uint8_t value)
 {
-    _O1 = (value == LOW) ? 0 : AS524X_O1_HIGH;
-    uint8_t cmd = AS524X_RDAC0 | _O1 | _O2;
-    return send(cmd, _lastValue[0]);
+  _O1 = (value == LOW) ? 0 : AS524X_O1_HIGH;
+  uint8_t cmd = AS524X_RDAC0 | _O1 | _O2;
+  return send(cmd, _lastValue[0]);
 }
 
 uint8_t AD524X::setO2(const uint8_t value)
 {
-    _O2 = (value == LOW) ? 0: AS524X_O2_HIGH;
-    uint8_t cmd = AS524X_RDAC0 | _O1 | _O2;
-    return send(cmd, _lastValue[0]);
+  _O2 = (value == LOW) ? 0: AS524X_O2_HIGH;
+  uint8_t cmd = AS524X_RDAC0 | _O1 | _O2;
+  return send(cmd, _lastValue[0]);
 }
 
 uint8_t AD524X::getO1()
 {
-    return (_O1 > 0);
+  return (_O1 > 0);
 }
 
 uint8_t AD524X::getO2()
 {
-    return (_O2 > 0);
+  return (_O2 > 0);
 }
 
 uint8_t AD524X::read(const uint8_t rdac)
 {
-    return _lastValue[rdac];
+  return _lastValue[rdac];
 }
 
 uint8_t AD524X::readBackRegister()
 {
-    Wire.beginTransmission(_address);
-    Wire.endTransmission();
-    Wire.requestFrom(_address, (uint8_t)1);
-    return Wire.read();
+  Wire.beginTransmission(_address);
+  Wire.endTransmission();
+  Wire.requestFrom(_address, (uint8_t)1);
+  return Wire.read();
 }
 
 uint8_t AD524X::midScaleReset(const uint8_t rdac)
 {
-    if (rdac > 1) return AS524X_ERROR;
+  if (rdac > 1) return AS524X_ERROR;
 
-    uint8_t cmd = AS524X_RESET;
-    if (rdac == 1) cmd |= AS524X_RDAC1;
-    cmd = cmd | _O1 | _O2;
-    _lastValue[rdac] = 127;
-    return send(cmd, _lastValue[rdac]);
+  uint8_t cmd = AS524X_RESET;
+  if (rdac == 1) cmd |= AS524X_RDAC1;
+  cmd = cmd | _O1 | _O2;
+  _lastValue[rdac] = 127;
+   return send(cmd, _lastValue[rdac]);
 }
 
 // TODO read datasheet
@@ -115,10 +121,10 @@ uint8_t AD524X::midScaleReset(const uint8_t rdac)
 //
 uint8_t AD524X::send(const uint8_t cmd, const uint8_t value)
 {
-    Wire.beginTransmission(_address);
-    Wire.write(cmd);
-    Wire.write(value);
-    return Wire.endTransmission();
+  Wire.beginTransmission(_address);
+  Wire.write(cmd);
+  Wire.write(value);
+  return Wire.endTransmission();
 }
 
 // -- END OF FILE --
