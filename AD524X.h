@@ -21,14 +21,13 @@ class AD524X
 public:
   explicit AD524X(const uint8_t address);
 
+  uint8_t reset();
   uint8_t zeroAll();
   uint8_t read(const uint8_t rdac);
   // for debugging
   uint8_t readBackRegister();  // returns the last value written in register.
 
-  // rdac value
   uint8_t write(const uint8_t rdac, const uint8_t value);
-  // rdac value O1 O2
   uint8_t write(const uint8_t rdac, const uint8_t value, const uint8_t O1, const uint8_t O2);
 
   uint8_t setO1(const uint8_t value = HIGH);  // HIGH (default) / LOW

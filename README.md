@@ -37,7 +37,9 @@ One can set the value of (both) the potentiometer(s), and the O1 and O2 lines.
 - **uint8_t write(rdac, value);** value 0..255
 - **uint8_t write(rdac, value, O1, O2);**
 - **uint8_t setO1(value = HIGH);**  value = HIGH (default) or LOW
-- **uint8_t setO2(value - HIGH);**
+- **uint8_t setO2(value = HIGH);**  value = HIGH (default) or LOW
+- **uint8_t zeroAll()** sets pm's and I/O to 0 or LOW.
+- **uint8_t reset()** sets pm's to midpoint = 127 and I/O to LOW. (startup)
 
 Also one can read the current values
 

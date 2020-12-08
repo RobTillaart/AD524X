@@ -43,6 +43,10 @@ unittest(test_begin)
   AD.zeroAll();
   assertEqual(0, AD.read(0));
   assertEqual(0, AD.read(1));
+
+  AD.reset();
+  assertEqual(127, AD.read(0));
+  assertEqual(127, AD.read(1));
 }
 
 unittest(test_write_read)

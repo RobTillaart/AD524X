@@ -24,6 +24,12 @@ AD524X::AD524X(const uint8_t address)
   _O1 = _O2 = 0;
 }
 
+uint8_t AD524X::reset()
+{
+  write(0, 127, LOW, LOW);
+  return write(1, 127);
+}
+
 uint8_t AD524X::zeroAll()
 {
   write(0, 0, LOW, LOW);
