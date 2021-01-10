@@ -41,16 +41,24 @@ One can get / set the value of (both) the potentiometer(s), and the O1 and O2 li
 
 ### Constructors
 
-- **AD524X()** base class, creates an instance with 2 potentiometer.
+- **AD524X(uint8_t address, TwoWire \*wire = &Wire)** base class, 
+creates an instance with 2 potentiometer.
 This class does not distinguish between AD5241 and AD5242. 
 The developer is responsible for handling this correctly.
-- **AD5241()** create an instance with 1 potentiometer
-- **AD5242()** create an instance with 2 potentiometer
+- **AD5241(uint8_t address, TwoWire \*wire = &Wire)** create an instance with 1 potentiometer
+- **AD5242(uint8_t address, TwoWire \*wire = &Wire)** create an instance with 2 potentiometer
+
+
+### Wire initialization
+
+- **bool begin(uint8_t sda, uint8_t scl)** ESP32 a.o initializing of Wire
+- **bool begin()** for UNO
+- **bool isConnected()** See if address set in constructor is on the bus.
 
 
 ### Basic IO
 
-- **uint8_t write(rdac, value)** set channel rdac to value 0..255
+- **uint8_t write(rdac, value)** set channel rdac 0/1 to value 0..255
 - **uint8_t write(rdac, value, O1, O2)** idem + set output lines O1 and O2 too
 - **uint8_t read(rdac)** read back set value
 - **uint8_t setO1(value = HIGH)**  value = HIGH (default) or LOW
