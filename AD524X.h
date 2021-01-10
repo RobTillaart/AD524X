@@ -2,7 +2,7 @@
 //
 //    FILE: AD524X.h
 //  AUTHOR: Rob Tillaart
-// VERSION: 0.3.0
+// VERSION: 0.3.1
 // PURPOSE: I2C digital PotentioMeter AD5241 AD5242
 //    DATE: 2013-10-12
 //     URL: https://github.com/RobTillaart/AD524X
@@ -11,16 +11,25 @@
 #include "Arduino.h"
 #include "Wire.h"
 
-#define AD524X_VERSION "0.3.0"
 
-#define AS524X_OK       0
-#define AS524X_ERROR    100
+#define AD524X_VERSION        (F("0.3.1"))
+
+
+#define AS524X_OK             0
+#define AS524X_ERROR          100
+
 
 class AD524X
 {
 public:
-  explicit AD524X(const uint8_t address);
+  explicit AD524X(const uint8_t address, TwoWire *wire = &Wire);
 
+#if defined (ESP8266) || defined(ESP32)
+  bool    begin(uint8_t sda, uint8_t scl);
+#endif
+  bool    begin();
+  bool    isConnected();
+  
   uint8_t reset();    // reset both channels to 127 and O1/O2 to LOW
   uint8_t zeroAll();  //   set both channels to 0   and O1/O2 to LOW
 
@@ -52,6 +61,8 @@ private:
   uint8_t _lastValue[2];
   uint8_t _O1;
   uint8_t _O2;
+
+  TwoWire*  _wire;
 };
 
 //////////////////////////////////////////////////////////////
@@ -59,13 +70,13 @@ private:
 class AD5241 : public AD524X
 {
 public:
-  AD5241(const uint8_t address);
+  AD5241(const uint8_t address, TwoWire *wire = &Wire);
 };
 
 class AD5242 : public AD524X
 {
 public:
-  AD5242(const uint8_t address);
+  AD5242(const uint8_t address, TwoWire *wire = &Wire);
 };
 
 
