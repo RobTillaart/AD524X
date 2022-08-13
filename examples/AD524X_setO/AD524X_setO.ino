@@ -24,7 +24,7 @@ void setup()
   
   bool b = AD01.begin();
   Serial.println(b ? "true" : "false");
-  Serial.println(AD.isConnected());
+  Serial.println(AD01.isConnected());
 }
 
 
