@@ -10,12 +10,12 @@
 #include "AD524X.h"
 
 
-#define AD524X_RDAC0    ````0x00
-#define AD524X_RDAC1    ````0x80
-#define AD524X_RESET    ````0x40
-#define AD524X_SHUTDOWN ````0x20
-#define AD524X_O1_HIGH  ````0x10
-#define AD524X_O2_HIGH  ````0x08
+#define AD524X_RDAC0        0x00
+#define AD524X_RDAC1        0x80
+#define AD524X_RESET        0x40
+#define AD524X_SHUTDOWN     0x20
+#define AD524X_O1_HIGH      0x10
+#define AD524X_O2_HIGH      0x08
 
 
 AD524X::AD524X(const uint8_t address, TwoWire *wire)
