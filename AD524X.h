@@ -25,7 +25,7 @@
 class AD524X
 {
 public:
-  explicit AD524X(const uint8_t address, TwoWire *wire = &Wire);
+  AD524X(const uint8_t address, TwoWire *wire = &Wire);
 
 #if defined (ESP8266) || defined(ESP32)
   bool    begin(uint8_t sda, uint8_t scl);
@@ -85,6 +85,9 @@ public:
 
   uint8_t write(const uint8_t value);
   uint8_t write(const uint8_t value, const uint8_t O1, const uint8_t O2);
+
+  uint8_t write(const uint8_t rdac, const uint8_t value);
+  uint8_t write(const uint8_t rdac, const uint8_t value, const uint8_t O1, const uint8_t O2);
 };
 
 

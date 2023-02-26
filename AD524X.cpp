@@ -206,7 +206,7 @@ uint8_t AD5241::write(const uint8_t value)
 }
 
 
-uint8_t AD5241::write(const uint8_t value, const uint8_t O1, const uint8_t O)
+uint8_t AD5241::write(const uint8_t value, const uint8_t O1, const uint8_t O2)
 {
   _O1 = (O1 == LOW) ? 0 : AD524X_O1_HIGH;
   _O2 = (O2 == LOW) ? 0 : AD524X_O2_HIGH;
@@ -215,6 +215,18 @@ uint8_t AD5241::write(const uint8_t value, const uint8_t O1, const uint8_t O)
   uint8_t cmd = AD524X_RDAC0 | _O1 | _O2;
   _lastValue[0] = value;
   return send(cmd, value);
+}
+
+
+uint8_t AD5241::write(const uint8_t rdac, const uint8_t value)
+{
+  return AD524X::write(rdac, value);
+}
+
+
+uint8_t AD5241::write(const uint8_t rdac, const uint8_t value, const uint8_t O1, const uint8_t O2)
+{
+  return AD524X::write(rdac, value, O1, O2);
 }
 
 
