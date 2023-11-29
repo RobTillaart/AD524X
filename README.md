@@ -132,6 +132,9 @@ as that is the only port.
 - **uint8_t write(const uint8_t value, const uint8_t O1, const uint8_t O2)**
 idem + set output lines O1 and O2 too.
 
+Note that the **write(rdac, value)** can be called but behaviour is not defined.
+(need to test behaviour or "block" this call).
+
 
 ## Operation
 
@@ -156,6 +159,8 @@ The examples show the basic working of the functions.
 
 - verify the AD5280 and AD5282.
   - should 5280 inherit from 5241.
+- improve the AD5241 interface 
+  - better handling of the **write(rdac, value)** calls (block?)
 - improve error handling.
 - sync with AD520X library
 

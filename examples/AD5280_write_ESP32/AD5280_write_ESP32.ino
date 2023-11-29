@@ -1,5 +1,5 @@
 //
-//    FILE: AD5281_write_ESP32.ino
+//    FILE: AD5280_write_ESP32.ino
 //  AUTHOR: Rob Tillaart
 // PURPOSE: AD524X demo program
 //     URL: https://github.com/RobTillaart/AD524X
@@ -8,7 +8,7 @@
 
 #include "AD524X.h"
 
-AD5281 AD01(0x2C);  //  AD0 & AD1 == GND
+AD5280 AD01(0x2C);  //  AD0 & AD1 == GND
 
 
 void setup()
