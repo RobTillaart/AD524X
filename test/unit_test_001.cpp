@@ -52,11 +52,11 @@ unittest(test_constructors)
   assertEqual(127, AD2.read(0));
   assertEqual(127, AD2.read(1));
 
-  AD5280 AD1(0x2C);
+  AD5280 AD3(0x2C);
   assertEqual(127, AD1.read(0));
   assertEqual(127, AD1.read(1));
 
-  AD5282 AD2(0x2C);
+  AD5282 AD4(0x2C);
   assertEqual(127, AD2.read(0));
   assertEqual(127, AD2.read(1));
 }
@@ -69,16 +69,16 @@ unittest(test_pmCount)
   AD524X ADx(0x2C);  //  AD0 & AD1 == GND
   assertEqual(2, ADx.pmCount());
   
-  AD5241 ADx(0x2C);
+  AD5241 AD1(0x2C);
   assertEqual(2, ADx.pmCount());
 
-  AD5242 ADx(0x2C);
+  AD5242 AD2(0x2C);
   assertEqual(2, ADx.pmCount());
 
-  AD5280 ADx(0x2C);
+  AD5280 AD3(0x2C);
   assertEqual(2, ADx.pmCount());
 
-  AD5282 ADx(0x2C);
+  AD5282 AD4(0x2C);
   assertEqual(2, ADx.pmCount());
 }
 
