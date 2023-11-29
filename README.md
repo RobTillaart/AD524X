@@ -16,29 +16,34 @@ Arduino class for I2C digital potentiometer AD5241 AD5242 AD5280 AD5282.
 
 ## Description
 
-The AD5241 and AD5242 are digital potentiometers.
-The AD5241 has one, the AD5242 has two potentiometers.
+The AD5241, AD5242, AD5280 and AD5282 are digital potentiometers.
+The AD5241/80 has one, the AD5242/82 has two potentiometers.
 Both types have two output lines O1 and O2.
 
 The AD5280/82 is compatible with AD5241/42 (based upon datasheet compare).
-The library has separate classes for these but these are not tested with 
-the actual hardware yet.
+The library provides separate classes for the AD5280/82 however these are 
+not tested with actual hardware yet.
 Please let me know if you get the AD5280/82 classes working.
 
-These digital potentiometers come in 10K, 100K and 1M
-and can be set in 256 steps.
+|  device  |  channels  |  steps |  ranges KΩ      | 
+|:--------:|:----------:|:------:|:---------------:|
+|  AD5241  |     2      |  256   |  10, 100, 1000  |
+|  AD5242  |     2      |  256   |  10, 100, 1000  |
+|  AD5280  |     2      |  256   |  20,  50,  200  |
+|  AD5282  |     2      |  256   |  20,  50,  200  |
+
 
 An important property of the devices is that they defaults
 to their mid position at startup.
 
-The library also defines AD524X_MIDPOINT == 127.
+The library defines AD524X_MIDPOINT == 127.
 To be used to set to defined mid-point.
 
 
 #### 0.5.0 Breaking change
 
-The ESP32 specific begin is removed, now the user has to call
-**Wire.begin()** or equivalent himself. 
+The ESP32 specific **begin(sda, scl)** is removed.
+The user has to call **Wire.begin()** or equivalent himself before calling **begin()**.
 
 
 #### Related
@@ -47,7 +52,6 @@ The ESP32 specific begin is removed, now the user has to call
 - https://github.com/RobTillaart/AD524X
 - https://github.com/RobTillaart/AD5245
 - https://github.com/RobTillaart/AD5144A
-- https://github.com/RobTillaart/AD5245
 - https://github.com/RobTillaart/AD5263
 - https://github.com/RobTillaart/X9C10X
 
@@ -56,6 +60,8 @@ The ESP32 specific begin is removed, now the user has to call
 
 The AD5243 (fixed address) and AD5248 (2 address pins) are very close but 
 not compatible with this library. See future.
+
+If you find compatible devices please let me know.
 
 
 ## I2C address
@@ -84,7 +90,7 @@ One can get / set the value of (both) the potentiometer(s), and the O1 and O2 ou
 
 - **AD524X(uint8_t address, TwoWire \*wire = &Wire)** constructor base class,
 creates an instance with 2 potentiometer.
-This class does not distinguish between AD5241 and AD5242.
+This class does not distinguish between AD5241/42/80/82.
 The developer is responsible for handling this correctly.
 - **AD5241(uint8_t address, TwoWire \*wire = &Wire)** create an instance with 1 potentiometer.
 - **AD5242(uint8_t address, TwoWire \*wire = &Wire)** create an instance with 2 potentiometer.
@@ -157,22 +163,19 @@ The examples show the basic working of the functions.
 
 #### Should
 
-- verify the AD5280 and AD5282.
-  - should 5280 inherit from 5241.
-- improve the AD5241 interface 
-  - better handling of the **write(rdac, value)** calls (block?)
+- verify the working of AD5280 and AD5282.
+- improve AD5241 handling of **write(rdac, value)** calls (block?)
 - improve error handling.
-- sync with AD520X library
+- sync with AD520X library.
 
 #### Could
 
-- investigate AD5243 compatibility (or separate library?)
-  - has no O1 and O2 lines.
-  
+
 #### Wont
 
 - make midpoint 128
-
+- investigate AD5243 ==> separate library!)
+  - has no O1 and O2 lines.
 
 ## Support
 
