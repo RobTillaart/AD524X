@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - add **getAddress()** (e.g. debugging)
 - improved **AD5241::write(rdac, ...)**
 - improved **AD5280::write(rdac, ...)**
+- update GitHub actions
 - update keywords.txt
 - minor edits examples
 

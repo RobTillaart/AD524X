@@ -54,15 +54,13 @@ The user has to call **Wire.begin()** or equivalent himself before calling **beg
 - https://github.com/RobTillaart/AD520x
 - https://github.com/RobTillaart/AD524X
 - https://github.com/RobTillaart/AD5245
+- https://github.com/RobTillaart/AD5248 (also AD5243)
 - https://github.com/RobTillaart/AD5144A
 - https://github.com/RobTillaart/AD5263
 - https://github.com/RobTillaart/X9C10X
 
 
 #### Compatibles ?
-
-The AD5243 (fixed address) and AD5248 (2 address pins) are very close but 
-not compatible with this library. See future.
 
 If you find compatible devices please let me know.
 
@@ -172,10 +170,6 @@ can be called and return **AD524X_ERROR** if **rdac > 0**.
 #### Wont
 
 - make midpoint 128
-- investigate AD5243 ==> need own library
-  - has no O1 and O2 lines.
-- investigate AD5248
-  - compatible or own library?
 
 
 ## Support
